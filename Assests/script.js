@@ -1,6 +1,10 @@
-let btn = document.querySelector('#searchBtn');
+let form = document.querySelector('form');
+let body = document.querySelector("body");
+form.addEventListener('submit', function(event){
+    event.preventDefault();
+    search();
+});
 
-btn.addEventListener('click', search);
 
 function search(){
     let val = document.querySelector('#searchBox').value;
@@ -12,7 +16,8 @@ function search(){
     })
     .then(function(data){
         display(data);
-    })
+       
+    });
     }
 }
 
@@ -23,7 +28,7 @@ function display(mydata){
         let para = document.createElement('p');
         para.innerHTML = "Sorry, We didn't found any thing<br>Check the spelling or try someghing else.";
         cont.appendChild(para);
-    }else
+    }else{
     for(var x=0;x<mydata.data.movie_count;x++){    
         // appending image
         let img = document.createElement('img');
@@ -34,7 +39,7 @@ function display(mydata){
         
         // appending title
         let h3 = document.createElement('h3');
-        let title = mydata.data.movies[x].title;
+        let title = mydata.data.movies[x].title + " (" + mydata.data.movies[x].year + ")";
         let text_node = document.createTextNode(title);
         h3.appendChild(text_node);
         
@@ -53,7 +58,31 @@ function display(mydata){
         sec.appendChild(h3); sec.appendChild(des);
         div.appendChild(imgDiv);
         div.appendChild(sec);
-        cont.appendChild(div);
-        
-    }
+        cont.appendChild(div);        
+    }}
+    
+    
+    let divRow = document.querySelector("#movies .row");
+    console.log(divRow.length);
+    for(i=0;i<divRow.length;i++){
+    divRow[i].addEventListener("click", function(){
+        console.log("div NO. " + divRow[i]);
+    });
 }
+}
+ 
+function downDiv(data){
+    let box = document.createElement("div");
+    box.classList.add("down"); box.classList.add("row");
+    box.innerHTML = '<div class="col-6"><h3>720p</h3><a href="' +
+                    data.torrents[0].url + 
+                    '"><span class="fa fa-download"</span></a></div><div class="col-6"> <h3>1080p</h3><a href="' + 
+                    data.torrents[1].url + 
+                    '"><span class="fa fa-download"></span></a></div>';
+    
+    body.appendChild(box);
+}
+
+
+
+ 

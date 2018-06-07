@@ -23,23 +23,29 @@ body{
 input{
    background: #eee;
     border: 1px solid green; padding: 5px;
+    border-bottom-left-radius: 5px; border-top-left-radius: 5px;
     color: darkmagenta;
 }
 input:focus{
     border: 1px solid #00f;
 }
-#searchBtn{
+.btn{
     border: 1px solid green; border-left: none;
-    padding: 6px 5px 7px 5px;
+    padding: 5px 6px; margin-bottom: 6px; 
+    border-top-left-radius: 0; border-bottom-left-radius: 0;
     background: #ccc;
 }
-#searchBtn:hover{
+.btn:hover{
     cursor: pointer;
     background: #bbb;
 }
 #movies .row{
     height: 120px;
     margin-bottom: 20px; color: white;
+}
+#movies .row:hover{
+    cursor:pointer;
+    background: rgba(0,0,0,0.4);
 }
 #movies .row section{
     overflow: hidden;
@@ -49,4 +55,10 @@ input:focus{
 }
 #movies .row p{
     color: yellow;
+}
+.down{
+    width: 500px; height: 300px; position: fixed;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
 }
