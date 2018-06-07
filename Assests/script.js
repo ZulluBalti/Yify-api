@@ -25,7 +25,7 @@ function display(mydata){
     cont.innerHTML = '';
     if(mydata.data.movie_count == 0){
         let para = document.createElement('p');
-        para.innerHTML = "Sorry, We didn't found any thing<br>Check the spelling or try someghing else.";
+        para.innerHTML = "<b>Sorry, We didn't found any thing<br>Check the spelling or try someghing else.</b>";
         cont.appendChild(para);
     }else{
     for(var x=0;x<mydata.data.movie_count;x++){    
@@ -44,7 +44,8 @@ function display(mydata){
     
     
     let divRow = document.querySelector("#movies .row");
-    console.log(divRow.length);
+    let a = ['a', 'b', 'c']
+    console.log(divRow.length); console.log(a.length);
     for(i=0;i<divRow.length;i++){
     divRow[i].addEventListener("click", function(){
         console.log("div NO. " + divRow[i]);

@@ -6,7 +6,8 @@ body{
 .container{
     width: 1000px; min-height: 786px;
     margin: auto;
-     background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.6);
+    color: yellowgreen;
 }
 .header{
     color: white;
