@@ -1,0 +1,52 @@
+body{
+    background: url("../images/bg.jpg");
+    background-position:  cover;
+}
+.container{
+    width: 1000px; min-height: 786px;
+    margin: auto;
+     background: rgba(0,0,0,0.6);
+}
+.header{
+    color: white;
+    padding: 10px 10px 0 10px;
+    border-bottom: 1px solid;
+}
+.header h1{
+    margin-top: 20px;
+    margin-left: -40px;
+}
+.boxes{
+    margin-bottom: 40px; color: yellowgreen; font-weight: 20;
+    padding: 10px;
+}
+input{
+   background: #eee;
+    border: 1px solid green; padding: 5px;
+    color: darkmagenta;
+}
+input:focus{
+    border: 1px solid #00f;
+}
+#searchBtn{
+    border: 1px solid green; border-left: none;
+    padding: 6px 5px 7px 5px;
+    background: #ccc;
+}
+#searchBtn:hover{
+    cursor: pointer;
+    background: #bbb;
+}
+#movies .row{
+    height: 120px;
+    margin-bottom: 20px; color: white;
+}
+#movies .row section{
+    overflow: hidden;
+}
+#movies img{
+    border-radius: 5px;
+}
+#movies .row p{
+    color: yellow;
+}
