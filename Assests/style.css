@@ -17,7 +17,10 @@ body{
     margin-left: -40px;
 }
 .boxes{
-    margin-bottom: 40px; color: yellowgreen; font-weight: 20;
+    font-size: 20px;
+    margin-bottom: 40px; 
+    color: greenyellow; 
+    font-weight: 700;
     padding: 10px;
 }
 input{
@@ -40,21 +43,22 @@ input:focus{
     background: #bbb;
 }
 #movies .row{
-    height: 120px;
-    margin-bottom: 20px; color: white;
+    height: 200px;
+    margin-bottom: 20px; 
+    color: white; 
+    overflow: hidden;
+    background: rgba(0,0,0,0.7);
 }
 #movies .row:hover{
     cursor:pointer;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.9);
 }
-#movies .row section{
-    overflow: hidden;
+#info p{
+    color: greenyellow;
 }
-#movies img{
+.poster{
+    
     border-radius: 5px;
-}
-#movies .row p{
-    color: yellow;
 }
 .down{
     width: 500px; height: 300px; position: fixed;
