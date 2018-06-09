@@ -35,7 +35,7 @@ function display(mydata){
         //appending rows to #movies
         
         let rows = document.createElement("div");
-        rows.classList.add("row");
+        rows.classList.add("row"); rows.setAttribute("id", "row-"+x);
         rows.innerHTML = '<div class="col-2"><img class="poster" width="150" height="200" src="' + mydata.data.movies[x].medium_cover_image + 
             '"></div><div class="col-10" id="info"><h3>' + mydata.data.movies[x].title + ' (' +
             mydata.data.movies[x].year + ')</h3><p>' + mydata.data.movies[x].summary + '</p></div>';
@@ -44,20 +44,20 @@ function display(mydata){
             
        
     }}
-    
-    
-    let divRow = document.querySelector("#movies .row");
-    let a = ['a', 'b', 'c']
-    console.log(divRow.length); console.log(a.length);
-    for(i=0;i<divRow.length;i++){
-    divRow[i].addEventListener("click", function(){
-        console.log("div NO. " + divRow[i]);
-    });
-}
+    let rowDiv = [];
+    for(i=0;i<mydata.data.movie_count;i++){
+         rowDiv[i] = document.querySelector("#row-"+i);
+         rowDiv[i].addEventListener("click", function(){
+             let x = this.getAttribute("id");
+             let i = x.substr(4,1);
+     
+             downDiv(mydata.data.movies[i]);
+         })
+    };
 }
  
 function downDiv(data){
-    let box = document.createElement("div");
+   let box = document.createElement("div");
     box.classList.add("down"); box.classList.add("row");
     box.innerHTML = '<div class="col-6"><h3>720p</h3><a href="' +
                     data.torrents[0].url + 
