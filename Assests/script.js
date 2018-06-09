@@ -7,18 +7,7 @@ form.addEventListener('submit', function(event){
     cont.innerHTML = '<img id="loading" src="images/loading.gif" width="50" height="50">';
     search();
 });
-
-$(document).ready(function(){
-                 $(".down").click(function(){
-                     console.log("Zullu");
-                 });
-    
-                  $("#close").click(function(){
-                    $("#box").hide();
-                      console.log("Ali");
-})
-});
-
+let box;
 function search(){
     let val = document.querySelector('#searchBox').value;
     if(val != ''){
@@ -68,7 +57,7 @@ function display(mydata){
 }
  
 function downDiv(data){
-    let box = document.createElement("div");
+    box = document.createElement("div");
     box.classList.add("down");
     box.classList.add("row");
     box.classList.add("text-center");
@@ -77,8 +66,12 @@ function downDiv(data){
                     data.torrents[0].url + 
                     '"><span class="fa fa-download"</span></a></div><div class="col-6"> <h4>1080p</h4><a href="' + 
                     data.torrents[1].url + 
-                    '"><span class="fa fa-download"></span></a></div><span id="close" class="fa fa-close"></span>';
+                    '"><span class="fa fa-download"></span></a></div><span onclick="hide()"    id="close" class="fa fa-close"></span>';
     body.appendChild(box);
+}
+
+function hide(){
+    box.style.display = "none";
 }
 
 
