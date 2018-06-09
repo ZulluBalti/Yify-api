@@ -8,11 +8,12 @@ form.addEventListener('submit', function(event){
     search();
 });
 let box;
+let encUrl;
 function search(){
     let val = document.querySelector('#searchBox').value;
     if(val != ''){
-    // cont.innerHTML = '<img src="images/wait.gif" width="50" height="50">';
      let url = "https://yts.am/api/v2/list_movies.json?query_term="+val;
+        encUrl = encodeURI(url);
     fetch(url)
     .then(function(response){
         return response.json();
@@ -57,14 +58,16 @@ function display(mydata){
 }
  
 function downDiv(data){
+    let mag7 = "magnet:?xt=urn:btih:"+ data.torrents[0].hash + "&dn=" + encUrl + "&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80";
+    let mag8 = "magnet:?xt=urn:btih:"+ data.torrents[1].hash + "&dn=" + encUrl + "&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80";
     box = document.createElement("div");
     box.classList.add("down");
     box.classList.add("row");
     box.classList.add("text-center");
     box.setAttribute("id", "box");
-    box.innerHTML = '<h3 class="col-12">' + data.title + '</h3><div class="col-6"><h4>720p</h4><a href="' +
+    box.innerHTML = '<h3 class="col-12">' + data.title + '</h3><div class="col-6"><h4>720p</h4><a href=' + mag7 + '><span class="fa fa-magnet"></span></a><a href="' +
                     data.torrents[0].url + 
-                    '"><span class="fa fa-download"</span></a></div><div class="col-6"> <h4>1080p</h4><a href="' + 
+                    '"><span class="fa fa-download"></span></a></div><div class="col-6"><h4>1080p</h4><a href=' +mag8+ '"><span class="fa fa-magnet"></span></a><a href="' + 
                     data.torrents[1].url + 
                     '"><span class="fa fa-download"></span></a></div><span onclick="hide()"    id="close" class="fa fa-close"></span>';
     body.appendChild(box);
