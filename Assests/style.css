@@ -72,16 +72,31 @@ input:focus{
     border-radius: 7px;
     background: white;
 }
+#h3{
+    border-bottom: 1px solid black; font-size: 30px;
+    height: 100px;
+    color: blueviolet;
+    font-weight: bold;
+}
+.fa-magnet{
+    color: darkred;
+    margin: 10px;
+}
+.fa-download{
+    color: saddlebrown;
+    margin: 10px;
+}
 #loading{
     background: none; border: none;
     position: fixed; left: 50%; top: 50%;
     transform: translate(-50%, -50%)
 }
 #close{
-    border-radius: 50%; font-size: 15px;
+    border-radius: 50%; font-size: 20px;
     padding: 5px;
     position: absolute;
     right:0; top:0;
+    color: darkred;
 }
 #close:hover{
     background:#ccc;
