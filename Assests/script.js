@@ -1,13 +1,17 @@
 let form = document.querySelector('form');
 let body = document.querySelector("body");
+let cont = document.querySelector('#movies');
+
 form.addEventListener('submit', function(event){
     event.preventDefault();
+    cont.innerHTML = '<img id="loading" src="images/loading.gif" width="50" height="50">';
     search();
 });
 
 function search(){
     let val = document.querySelector('#searchBox').value;
     if(val != ''){
+    // cont.innerHTML = '<img src="images/wait.gif" width="50" height="50">';
      let url = "https://yts.am/api/v2/list_movies.json?query_term="+val;
     fetch(url)
     .then(function(response){
@@ -21,7 +25,6 @@ function search(){
 }
 
 function display(mydata){
-    let cont = document.querySelector('#movies');
     cont.innerHTML = '';
     if(mydata.data.movie_count == 0){
         let para = document.createElement('p');

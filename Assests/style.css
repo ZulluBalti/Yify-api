@@ -29,7 +29,7 @@ body{
     padding: 10px;
 }
 input{
-   background: #eee;
+    background: #eee;
     border: 1px solid green; padding: 5px;
     border-bottom-left-radius: 5px; border-top-left-radius: 5px;
     color: darkmagenta;
@@ -38,7 +38,7 @@ input:focus{
     border: 1px solid #00f;
 }
 .btn{
-    border: 1px solid green; border-left: none;
+    border: 1px solid green; border-left: 0;
     padding: 5px 6px; margin-bottom: 3px; 
     border-top-left-radius: 0; border-bottom-left-radius: 0;
     background: #ccc;
@@ -62,7 +62,7 @@ input:focus{
     color: greenyellow;
 }
 .poster{
-    
+    border: 1px solid deepskyblue;
     border-radius: 5px;
 }
 .down{
@@ -70,4 +70,9 @@ input:focus{
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
     background: white;
+}
+#loading{
+    background: none; border: none;
+    position: fixed; left: 50%; top: 50%;
+    transform: translate(-50%, -50%)
 }
