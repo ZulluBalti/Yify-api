@@ -4,8 +4,8 @@ body{
     font-family: 'Merienda', serif
 }
 .container{
-    width: 1000px; min-height: 786px;
-    margin: auto;
+    width: 1000px; min-height: 700px;
+    margin: 0 auto;
     background: rgba(0,0,0,0.6);
     color: yellowgreen;
 }
@@ -69,10 +69,20 @@ input:focus{
     width: 500px; height: 300px; position: fixed;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 7px;
     background: white;
 }
 #loading{
     background: none; border: none;
     position: fixed; left: 50%; top: 50%;
     transform: translate(-50%, -50%)
+}
+#close{
+    border-radius: 50%; font-size: 15px;
+    padding: 5px;
+    position: absolute;
+    right:0; top:0;
+}
+#close:hover{
+    background:#ccc;
 }

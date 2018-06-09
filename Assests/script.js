@@ -8,6 +8,17 @@ form.addEventListener('submit', function(event){
     search();
 });
 
+$(document).ready(function(){
+                 $(".down").click(function(){
+                     console.log("Zullu");
+                 });
+    
+                  $("#close").click(function(){
+                    $("#box").hide();
+                      console.log("Ali");
+})
+});
+
 function search(){
     let val = document.querySelector('#searchBox').value;
     if(val != ''){
@@ -57,14 +68,16 @@ function display(mydata){
 }
  
 function downDiv(data){
-   let box = document.createElement("div");
-    box.classList.add("down"); box.classList.add("row");
-    box.innerHTML = '<div class="col-6"><h3>720p</h3><a href="' +
+    let box = document.createElement("div");
+    box.classList.add("down");
+    box.classList.add("row");
+    box.classList.add("text-center");
+    box.setAttribute("id", "box");
+    box.innerHTML = '<h3 class="col-12">' + data.title + '</h3><div class="col-6"><h4>720p</h4><a href="' +
                     data.torrents[0].url + 
-                    '"><span class="fa fa-download"</span></a></div><div class="col-6"> <h3>1080p</h3><a href="' + 
+                    '"><span class="fa fa-download"</span></a></div><div class="col-6"> <h4>1080p</h4><a href="' + 
                     data.torrents[1].url + 
-                    '"><span class="fa fa-download"></span></a></div>';
-    
+                    '"><span class="fa fa-download"></span></a></div><span id="close" class="fa fa-close"></span>';
     body.appendChild(box);
 }
 
