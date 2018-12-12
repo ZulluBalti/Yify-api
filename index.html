@@ -1,48 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Yify Movies">
-        <title>Yify Movies</title>
-        <link rel="icon" type="image/png" href="images/mini-logo.png">
-        <link rel="stylesheet" href="Assests/bootstrap.min.css">
-        <link rel="stylesheet" href="Assests/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Lobster|Merienda|Monoton|Permanent+Marker" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <!-- end of head-->
-    <body>
-        <div class="container">
-            <div class="header row">
-                <div class="col-2 text-right">
-                <img src="images/logo.png" width="100" height="99">
-                </div>
-                <h1 class="text-center col-10">Search Yify Movies</h1>
-            </div>
-            <!-- header -->
-            <div class="text-center boxes">
-                <p>Type in the search box to search for yify movies.</p>
-                <form>
-                <input type="text" value="" name="search" id="searchBox" placeholder="Search"><button class="btn" type="submit"><i class="fa fa-search" id="searchBtn"></i></button>
-                </form>
-            </div>
-            <!-- box -->
-            <div id="movies">
-                
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Yify Movies" />
+    <title>Yify Movies</title>
+    <link rel="icon" type="image/png" href="images/mini-logo.png" />
+    <link rel="stylesheet" href="Assests/bootstrap.min.css" />
+    <link rel="stylesheet" href="Assests/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Kaushan+Script|Lobster|Merienda|Monoton|Permanent+Marker"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <!-- end of head -->
+  <body>
+    <div class="container">
+      <div class="header row">
+        <div class="col-2 text-right">
+          <img src="images/logo.png" width="100" height="99" />
         </div>
-            <!-- movies -->
-        </div>
-        <!-- container -->
-         <div class="footer">
-                <div class="row">
-                <footer class="col-12">
-                    <span>Copyright &copy; 2018 all right reserved</span>
-                    <p>Made by Zullu</p>
-                </footer>
-                </div>
-            </div>
-        <!-- footer-->
-        <script src="Assests/script.js"></script>
-    </body>
+        <h1 class="text-center col-10">Search Yify Movies</h1>
+      </div>
+      <!-- header -->
+      <div class="boxes text-center">
+        <p>Type in the search box to search for yify movies.</p>
+        <form class="searchDiv">
+          <input
+            type="text"
+            value=""
+            name="search"
+            id="searchBox"
+            placeholder="Search"
+          />
+          <button class="btn" type="submit">
+            <i class="fa fa-search" id="searchBtn"></i>
+          </button>
+        </form>
+      </div>
+      <!-- box -->
+      <div id="movies"></div>
+      <!-- movies -->
+    </div>
+    <!-- container -->
+    <div class="footer">
+      <div class="row">
+        <footer class="col-12">
+          <span>Copyright &copy; 2018 all right reserved</span>
+          <p>Made by Zullu</p>
+        </footer>
+      </div>
+    </div>
+    <!-- footer -->
+    <script src="Assests/script.js"></script>
+  </body>
 </html>
