@@ -63,21 +63,21 @@ function display(mydata) {
           genre += `${g}, `;
         });
       }
-
-      let rows = `<div class="row movie__box" id="row-${x}">
-                    <div class="col-2">
-                        <img class="poster" width="150" height="200" src="${
-                          movie.medium_cover_image
-                        }">
+      let hour = Math.floor(movie.runtime / 60);
+      let min = movie.runtime % 60;
+      let rows = `<div class="movie__box" id="row-${x}">
+                    <img class="poster" src="${movie.medium_cover_image}">
+                    <div id="info">
+                        <h4>${movie.title} (${movie.year})</h4>
+                        <span class="clearFix text-success"><strong>Genre: </strong>${genre}</span>
+                        <span class="text-success clearFix"><strong>IMDb: </strong>${
+                          movie.rating
+                        }</span>
+                        <span class="text-success clearFix"><strong>Run Time: </strong>${hour}:${min}</span>
                     </div>
-                    <div class="col-10" id="info">
-                        <h3>${movie.title} (${movie.year})</h3>
-                        <span class="clearFix text-success"><strong>Genre: </strong>${genre}
-                        <p>${movie.summary}</p>
-                    </div>;
                 </div>
                 `;
-      cont.insertAdjacentHTML("afterbegin", rows);
+      cont.insertAdjacentHTML("beforeend", rows);
     });
   }
   let movie__boxes = document.querySelectorAll(".movie__box");
@@ -91,7 +91,11 @@ function display(mydata) {
 
 function downDiv(data) {
   let y = data.torrents.length;
-
+  let summary =
+    data.summary
+      .split(" ")
+      .slice(0, 30)
+      .join(" ") + " ...";
   let mag7 = `magnet:?xt=urn:btih:${
     data.torrents[y - 2].hash
   }&dn=${encUrl}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
@@ -121,7 +125,8 @@ function downDiv(data) {
                     </a>
                     <span class="size">Size: ${data.torrents[y - 1].size}
                     </span>
-                </div>
+                    </div>
+                <p class="col-12">${summary}</p>
                 <span onclick="hide()" id="close" class="fa fa-close"></span>
             </div>
         </div>
