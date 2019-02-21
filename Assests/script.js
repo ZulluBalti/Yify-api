@@ -3,7 +3,7 @@ let body = document.querySelector("body");
 let cont = document.querySelector("#movies");
 
 // Search for movies after submit
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", function (event) {
   event.preventDefault();
   let val = document.querySelector("#searchBox").value;
   if (val) {
@@ -59,8 +59,8 @@ function display(mydata) {
       let genre = "";
 
       if (movie.genres) {
-        movie.genres.forEach(g => {
-          genre += `${g}, `;
+        movie.genres.forEach((g, i) => {
+          i === movie.genres.length - 1 ? genre += `${g}` : genre += `${g}, `;
         });
       }
       let hour = Math.floor(movie.runtime / 60);
@@ -73,7 +73,7 @@ function display(mydata) {
                         <span class="text-success clearFix"><strong>IMDb: </strong>${
                           movie.rating
                         }</span>
-                        <span class="text-success clearFix"><strong>Run Time: </strong>${hour}:${min}</span>
+                        <span class="text-success clearFix"><strong>Run Time: </strong>${hour}h ${min}m</span>
                     </div>
                 </div>
                 `;
@@ -93,9 +93,9 @@ function downDiv(data) {
   let y = data.torrents.length;
   let summary =
     data.summary
-      .split(" ")
-      .slice(0, 30)
-      .join(" ") + " ...";
+    .split(" ")
+    .slice(0, 30)
+    .join(" ") + " ...";
   let mag7 = `magnet:?xt=urn:btih:${
     data.torrents[y - 2].hash
   }&dn=${encUrl}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
