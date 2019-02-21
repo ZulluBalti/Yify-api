@@ -3,6 +3,7 @@ body {
   background-position: cover;
   font-family: "Merienda", serif;
 }
+
 .container {
   max-width: 1000px;
   min-height: 700px;
@@ -12,11 +13,13 @@ body {
   color: yellowgreen;
   overflow: hidden;
 }
+
 .header {
   color: white;
   padding: 10px 10px 0 10px;
   border-bottom: 1px solid;
 }
+
 .header h1 {
   margin-top: 20px;
   margin-left: -40px;
@@ -24,6 +27,7 @@ body {
   font-family: "Monoton", "serif", "lobster";
   cursor: none;
 }
+
 .boxes {
   font-size: 20px;
   margin-bottom: 40px;
@@ -31,6 +35,7 @@ body {
   font-weight: 700;
   padding: 10px;
 }
+
 input {
   background: #eee;
   border: 1px solid green;
@@ -39,9 +44,11 @@ input {
   border-top-left-radius: 5px;
   color: darkmagenta;
 }
+
 input:focus {
   border: 1px solid #00f;
 }
+
 .btn {
   border: 1px solid green;
   border-left: 0;
@@ -50,15 +57,18 @@ input:focus {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
 .btn:hover {
   cursor: pointer;
   background: #bbb;
 }
+
 .searchDiv {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
 }
+
 #movies .row {
   height: 220px;
   line-height: 1.5;
@@ -71,27 +81,42 @@ input:focus {
   border-radius: 10px;
   padding: 8px;
 }
+
 #movies .row:hover {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.9);
 }
+
 #info p {
   color: greenyellow;
 }
+
 .poster {
   border: 1px solid deepskyblue;
   border-radius: 5px;
 }
+
+/* Download box container */
+.down__con {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 2;
+}
+
+/* Download box */
 .down {
   width: 500px;
   height: 300px;
-  position: fixed;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 7px;
   background: white;
 }
+
 #h3 {
   border-bottom: 1px solid black;
   font-size: 30px;
@@ -99,14 +124,17 @@ input:focus {
   color: blueviolet;
   font-weight: bold;
 }
+
 .fa-magnet {
   color: darkred;
   margin: 10px;
 }
+
 .fa-download {
   color: saddlebrown;
   margin: 10px;
 }
+
 #loading {
   background: none;
   border: none;
@@ -115,31 +143,38 @@ input:focus {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
 #close {
   border-radius: 50%;
   font-size: 20px;
   padding: 5px;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: -20px;
+  top: -20px;
+  background: white;
   color: darkred;
 }
+
 #close:hover {
   background: #ccc;
 }
+
 .footer {
   text-align: center;
   color: yellowgreen;
   padding: 10px;
   background: rgba(0, 0, 0, 0.9);
 }
+
 .size {
   display: block;
 }
+
 .ver {
   border-right: 2px solid black;
   height: 200px;
 }
+
 .col-6 {
   padding-top: 30px;
 }
