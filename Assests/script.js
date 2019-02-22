@@ -3,24 +3,24 @@ const UIContrl = (() => {
     form: document.querySelector("form"),
     body: document.querySelector("body"),
     cont: document.querySelector("#movies"),
-    input: document.querySelector('input'),
-    year: document.querySelector(".date__year"),
+    input: document.querySelector("input"),
+    year: document.querySelector(".date__year")
   };
 
   return {
     getDomStr: () => domStr,
     getInputVal: () => domStr.input.value,
     clearInput: () => {
-      domStr.input.value = '';
+      domStr.input.value = "";
     },
     showLoader: () => {
       let loader = `<img id="loading" src="images/loading.gif" width="50" height="50">`;
       domStr.cont.innerHTML = loader;
     },
     removeLoader: () => {
-      domStr.cont.innerHTML = '';
+      domStr.cont.innerHTML = "";
     },
-    display: function (data) {
+    display: function(data) {
       this.removeLoader();
       // If there is no movie
       if (data.movie_count == 0) {
@@ -35,7 +35,9 @@ const UIContrl = (() => {
 
           if (movie.genres) {
             movie.genres.forEach((g, i) => {
-              i === movie.genres.length - 1 ? genre += `${g}` : genre += `${g}, `;
+              i === movie.genres.length - 1
+                ? (genre += `${g}`)
+                : (genre += `${g}, `);
             });
           }
           let hour = Math.floor(movie.runtime / 60);
@@ -44,7 +46,7 @@ const UIContrl = (() => {
                         <img class="poster" src="${movie.medium_cover_image}">
                         <div id="info">
                             <h4>${movie.title} (${movie.year})</h4>
-                            <span class="clearFix text-success"><strong>Genre: </strong>${genre}</span>
+                            <span class="clearFix text-success genres"><strong>Genre: </strong><span>${genre}</span></span>
                             <span class="text-success clearFix"><strong>IMDb: </strong>${
                               movie.rating
                             }</span>
@@ -60,17 +62,25 @@ const UIContrl = (() => {
       let box = document.querySelector(".down__con");
       box.parentElement.removeChild(box);
     },
-    disDownload: (data) => {
+    disDownload: data => {
       let y = data.torrents.length;
       let summary =
         data.summary
-        .split(" ")
-        .slice(0, 30)
-        .join(" ") + " ...";
+          .split(" ")
+          .slice(0, 30)
+          .join(" ") + " ...";
 
-      let mag7 = `magnet:?xt=urn:btih:${data.torrents[y - 2].hash}&dn=${encodeURI(data.title)}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
+      let mag7 = `magnet:?xt=urn:btih:${
+        data.torrents[y - 2].hash
+      }&dn=${encodeURI(
+        data.title
+      )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
 
-      let mag8 = `magnet:?xt=urn:btih:${data.torrents[y - 1].hash}&dn=${encodeURI(data.title)}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
+      let mag8 = `magnet:?xt=urn:btih:${
+        data.torrents[y - 1].hash
+      }&dn=${encodeURI(
+        data.title
+      )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
 
       box = `
               <div class="down__con close__able">
@@ -79,7 +89,9 @@ const UIContrl = (() => {
                       <div class="col-6 ver">
                           <h4>720p</h4>
                           <a href='${mag7}' class='close__able'><span class="fa fa-magnet close__able"></span></a>
-                          <a href='${data.torrents[y - 2].url}' class='close__able'>
+                          <a href='${
+                            data.torrents[y - 2].url
+                          }' class='close__able'>
                               <span  class="fa fa-download close__able"></span>
                           </a>
                           <span class="size">Size: ${data.torrents[y - 2].size}
@@ -88,7 +100,9 @@ const UIContrl = (() => {
                       <div class="col-6">
                           <h4>1080p</h4>
                           <a href='${mag8}' class='close__able'><span class="fa fa-magnet close__able"> </span></a>
-                          <a href='${data.torrents[y - 1].url}' class='close__able'>
+                          <a href='${
+                            data.torrents[y - 1].url
+                          }' class='close__able'>
                               <span  class="fa fa-download close__able"></span>
                           </a>
                           <span class="size">Size: ${data.torrents[y - 1].size}
@@ -106,7 +120,7 @@ const UIContrl = (() => {
 
 const movieContrl = (() => {
   return {
-    search: async (url) => {
+    search: async url => {
       let res = await fetch(url);
       let data = await res.json();
       return data.data;
@@ -115,7 +129,7 @@ const movieContrl = (() => {
 })();
 
 const controller = ((UIC, MC) => {
-  const addEvents = (data) => {
+  const addEvents = data => {
     let movie__boxes = document.querySelectorAll(".movie__box");
     movie__boxes = Array.from(movie__boxes);
     movie__boxes.forEach((movie, i) => {
@@ -123,20 +137,20 @@ const controller = ((UIC, MC) => {
         UIC.disDownload(data[i]);
       });
     });
-  }
+  };
 
   const setupEventListener = (() => {
     const DOM = UIC.getDomStr();
 
-    const displayRes = async (url) => {
+    const displayRes = async url => {
       UIC.showLoader();
       const data = await MC.search(url);
       UIC.display(data);
       addEvents(data.movies);
-    }
+    };
 
     // Display movie on form submit
-    DOM.form.addEventListener("submit", function (event) {
+    DOM.form.addEventListener("submit", function(event) {
       event.preventDefault();
       let val = UIC.getInputVal();
       if (val) {
@@ -162,6 +176,5 @@ const controller = ((UIC, MC) => {
         UIC.hideDownload();
       }
     });
-
   })();
 })(UIContrl, movieContrl);

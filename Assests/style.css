@@ -166,10 +166,32 @@ input:focus {
   background: rgba(0, 0, 0, 0.9);
 }
 
+/* INfo */
+.info>span {
+  margin-bottom: 0.5rem;
+}
+
+/* Genres */
+.genres {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+}
+
+.genres strong {
+  flex-basis: 10%;
+  margin-right: 0.5rem;
+}
+
+.genres span {
+  flex-basis: 80%;
+}
+
 .down p {
   color: darkblue;
   background: inherit;
-  border-top: 5px solid black;
+  border: 5px inset darkred;
+  border-top-color: black;
+  border-radius: 0 0 10px 10px;
   padding: 5px;
 }
 
