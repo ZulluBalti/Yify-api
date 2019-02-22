@@ -70,12 +70,24 @@ const UIContrl = (() => {
         .slice(0, 30)
         .join(" ") + " ...";
 
-      let hash7 = data.torrents[y - 2].hash;
-      let hash8 = data.torrents[y - 1].hash;
+      let hash7 = data.torrents[y - 2];
+      let hash8 = data.torrents[y - 1];
+      let url7 = size7 = hash7;
+      let url8 = size8 = hash8;
       if (!hash7)
         hash7 = '';
+      else {
+        hash7 = hash7.hash;
+        url7 = hash7.url;
+        size7 = hash7.size;
+      }
       if (!hash8)
-        hash8 = ''
+        hash8 = '';
+      else {
+        hash8 = hash8.hash;
+        url8 = hash8.url;
+        size8 = hash8.size;
+      }
 
       let mag7 = `magnet:?xt=urn:btih:${hash7}&dn=${encodeURI(
         data.title
@@ -94,22 +106,22 @@ const UIContrl = (() => {
                           <h4>720p</h4>
                           <a href='${mag7}' class='close__able'><span class="fa fa-magnet close__able"></span></a>
                           <a href='${
-                            data.torrents[y - 2].url
+                            url7
                           }' class='close__able'>
                               <span  class="fa fa-download close__able"></span>
                           </a>
-                          <span class="size">Size: ${data.torrents[y - 2].size}
+                          <span class="size">Size: ${size7}
                           </span>
                       </div>
                       <div class="col-6">
                           <h4>1080p</h4>
                           <a href='${mag8}' class='close__able'><span class="fa fa-magnet close__able"> </span></a>
                           <a href='${
-                            data.torrents[y - 1].url
+                            url8
                           }' class='close__able'>
                               <span  class="fa fa-download close__able"></span>
                           </a>
-                          <span class="size">Size: ${data.torrents[y - 1].size}
+                          <span class="size">Size: ${size8}
                           </span>
                           </div>
                       <p class="col-12">${summary}</p>
