@@ -20,14 +20,14 @@ const UIContrl = (() => {
     removeLoader: () => {
       domStr.cont.innerHTML = "";
     },
-    display: function(data) {
+    display: function (data) {
       this.removeLoader();
       // If there is no movie
       if (data.movie_count == 0) {
         let para = document.createElement("p");
         para.innerHTML =
           "<b>Sorry, We didn't found any thing<br>Check the spelling or try someghing else.</b>";
-        cont.appendChild(para);
+        domStr.cont.appendChild(para);
       } else {
         data.movies.forEach((movie, x) => {
           //appending rows to #movies
@@ -35,9 +35,9 @@ const UIContrl = (() => {
 
           if (movie.genres) {
             movie.genres.forEach((g, i) => {
-              i === movie.genres.length - 1
-                ? (genre += `${g}`)
-                : (genre += `${g}, `);
+              i === movie.genres.length - 1 ?
+                (genre += `${g}`) :
+                (genre += `${g}, `);
             });
           }
           let hour = Math.floor(movie.runtime / 60);
@@ -66,18 +66,22 @@ const UIContrl = (() => {
       let y = data.torrents.length;
       let summary =
         data.summary
-          .split(" ")
-          .slice(0, 30)
-          .join(" ") + " ...";
+        .split(" ")
+        .slice(0, 30)
+        .join(" ") + " ...";
 
-      let mag7 = `magnet:?xt=urn:btih:${
-        data.torrents[y - 2].hash
-      }&dn=${encodeURI(
+      let hash7 = data.torrents[y - 2].hash;
+      let hash8 = data.torrents[y - 1].hash;
+      if (!hash7)
+        hash7 = '';
+      if (!hash8)
+        hash8 = ''
+
+      let mag7 = `magnet:?xt=urn:btih:${hash7}&dn=${encodeURI(
         data.title
       )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
 
-      let mag8 = `magnet:?xt=urn:btih:${
-        data.torrents[y - 1].hash
+      let mag8 = `magnet:?xt=urn:btih:${hash8
       }&dn=${encodeURI(
         data.title
       )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
@@ -150,7 +154,7 @@ const controller = ((UIC, MC) => {
     };
 
     // Display movie on form submit
-    DOM.form.addEventListener("submit", function(event) {
+    DOM.form.addEventListener("submit", function (event) {
       event.preventDefault();
       let val = UIC.getInputVal();
       if (val) {
