@@ -63,6 +63,7 @@ const UIContrl = (() => {
       box.parentElement.removeChild(box);
     },
     disDownload: data => {
+      console.log(data);
       let y = data.torrents.length;
       let summary =
         data.summary
@@ -72,21 +73,25 @@ const UIContrl = (() => {
 
       let hash7 = data.torrents[y - 2];
       let hash8 = data.torrents[y - 1];
-      let url7 = size7 = hash7;
-      let url8 = size8 = hash8;
-      if (!hash7)
+      let url7, size7, url8, size8;
+      if (!hash7) {
         hash7 = '';
-      else {
-        hash7 = hash7.hash;
+        size7 = '';
+        hurl7 = '';
+      } else {
         url7 = hash7.url;
         size7 = hash7.size;
+        hash7 = hash7.hash;
+
       }
-      if (!hash8)
+      if (!hash8) {
         hash8 = '';
-      else {
-        hash8 = hash8.hash;
+        size8 = '';
+        hurl8 = '';
+      } else {
         url8 = hash8.url;
         size8 = hash8.size;
+        hash8 = hash8.hash;
       }
 
       let mag7 = `magnet:?xt=urn:btih:${hash7}&dn=${encodeURI(
