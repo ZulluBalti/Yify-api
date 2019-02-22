@@ -64,77 +64,51 @@ const UIContrl = (() => {
     },
     disDownload: data => {
       console.log(data);
-      let y = data.torrents.length;
-      let summary =
-        data.summary
-        .split(" ")
-        .slice(0, 30)
-        .join(" ") + " ...";
+      let noOfTorrents = data.torrents.length;
+      let summary = data.summary.split(" ").slice(0, 30).join(" ") + " ...";
+      let markup = `
+          <div class="down__con close__able">
+            <div class='down row text-center' id='box'>
+              <span class="col-12" id="h3">${data.title}</span>
+      `;
 
-      let hash7 = data.torrents[y - 2];
-      let hash8 = data.torrents[y - 1];
-      let url7, size7, url8, size8;
-      if (!hash7) {
-        hash7 = '';
-        size7 = '';
-        hurl7 = '';
-      } else {
-        url7 = hash7.url;
-        size7 = hash7.size;
-        hash7 = hash7.hash;
-
-      }
-      if (!hash8) {
-        hash8 = '';
-        size8 = '';
-        hurl8 = '';
-      } else {
-        url8 = hash8.url;
-        size8 = hash8.size;
-        hash8 = hash8.hash;
-      }
-
-      let mag7 = `magnet:?xt=urn:btih:${hash7}&dn=${encodeURI(
-        data.title
-      )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
-
-      let mag8 = `magnet:?xt=urn:btih:${hash8
-      }&dn=${encodeURI(
-        data.title
-      )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80`;
-
-      box = `
-              <div class="down__con close__able">
-                  <div class='down row text-center' id='box'>
-                      <span class="col-12" id="h3">${data.title}</span>
-                      <div class="col-6 ver">
-                          <h4>720p</h4>
-                          <a href='${mag7}' class='close__able'><span class="fa fa-magnet close__able"></span></a>
-                          <a href='${
-                            url7
-                          }' class='close__able'>
-                              <span  class="fa fa-download close__able"></span>
-                          </a>
-                          <span class="size">Size: ${size7}
-                          </span>
-                      </div>
-                      <div class="col-6">
-                          <h4>1080p</h4>
-                          <a href='${mag8}' class='close__able'><span class="fa fa-magnet close__able"> </span></a>
-                          <a href='${
-                            url8
-                          }' class='close__able'>
-                              <span  class="fa fa-download close__able"></span>
-                          </a>
-                          <span class="size">Size: ${size8}
-                          </span>
-                          </div>
-                      <p class="col-12">${summary}</p>
-                      <span id="close" class="fa fa-close close__able"></span>
-                  </div>
+      data.torrents.forEach((torrent, i) => {
+        let colSize;
+        switch (noOfTorrents) {
+          case 1:
+            colSize = '12';
+            break;
+          case 2:
+            colSize = '6';
+            break;
+          default:
+            colSize = '4';
+        }
+        if (i <= 2) {
+          let movie = `
+              <div class="col-${colSize} ver">
+                <h4>${torrent.quality}</h4>
+                <a href='magnet:?xt=urn:btih:${torrent.hash}&dn=${encodeURI(
+                  data.title
+                )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80' class='close__able'><span class="fa fa-magnet close__able"></span></a>
+                <a href='${
+                  torrent.url
+                }' class='close__able'>
+                    <span  class="fa fa-download close__able"></span>
+                </a>
+                <span class="size">Size: ${torrent.size}
+                </span>
               </div>
           `;
-      domStr.body.insertAdjacentHTML("afterbegin", box);
+          markup += movie;
+        }
+      });
+
+      markup += `<p class="col-12">${summary}</p>
+                <span id="close" class="fa fa-close close__able"></span>
+            </div>
+          </div>`;
+      domStr.body.insertAdjacentHTML("afterbegin", markup);
     }
   };
 })();

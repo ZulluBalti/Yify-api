@@ -190,10 +190,11 @@ input:focus {
 .down p {
   color: darkblue;
   background: inherit;
-  border: 5px inset darkred;
+  border: 5px solid #f00;
   border-top-color: black;
   border-radius: 0 0 10px 10px;
   padding: 5px;
+  margin-bottom: 0;
 }
 
 /* Download box container */
@@ -207,29 +208,28 @@ input:focus {
 
 /* Download box */
 .down {
-  width: 80%;
-  height: 70vh;
+  width: 90%;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 7px;
+  border-radius: 10px;
   background: white;
 }
 
 @media(min-width: 600px) {
   .down {
-    width: 500px;
-    height: 300px;
+    max-width: 500px;
   }
 }
 
 #h3 {
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid black;
   font-size: 30px;
-  height: 100px;
+  max-height: 100px;
   color: blueviolet;
   font-weight: bold;
+  padding: 1rem;
 }
 
 .fa-magnet {
@@ -256,8 +256,8 @@ input:focus {
   font-size: 20px;
   padding: 5px;
   position: absolute;
-  right: -20px;
-  top: -20px;
+  right: -15px;
+  top: -15px;
   background: white;
   color: darkred;
 }
@@ -278,8 +278,8 @@ input:focus {
 }
 
 .ver {
-  border-right: 2px solid black;
-  height: 200px;
+  max-height: 200px;
+  padding: 1rem;
 }
 
 .col-6 {
