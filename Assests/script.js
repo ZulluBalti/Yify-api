@@ -25,8 +25,9 @@ const UIContrl = (() => {
       // If there is no movie
       if (data.movie_count == 0) {
         let para = document.createElement("p");
+        para.setAttribute('class', 'error');
         para.innerHTML =
-          "<b>Sorry, We didn't found any thing<br>Check the spelling or try someghing else.</b>";
+          "<b>Sorry, We didn't find any thing<br>Check the spelling or try something else.</b>";
         domStr.cont.appendChild(para);
       } else {
         data.movies.forEach((movie, x) => {

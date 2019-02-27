@@ -285,3 +285,8 @@ input:focus {
 .col-6 {
   padding-top: 30px;
 }
+
+/* Error paragraph */
+.error {
+  color: #f70;
+}
