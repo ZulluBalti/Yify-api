@@ -75,7 +75,6 @@ input {
 
 input:focus {
   border: 1px solid #00ff28;
-  border-right: none;
   outline: none;
 }
 
