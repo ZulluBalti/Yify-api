@@ -20,12 +20,12 @@ const UIContrl = (() => {
     removeLoader: () => {
       domStr.cont.innerHTML = "";
     },
-    display: function (data) {
+    display: function(data) {
       this.removeLoader();
       // If there is no movie
       if (data.movie_count == 0) {
         let para = document.createElement("p");
-        para.setAttribute('class', 'error');
+        para.setAttribute("class", "error");
         para.innerHTML =
           "<b>Sorry, We didn't find any thing<br>Check the spelling or try something else.</b>";
         domStr.cont.appendChild(para);
@@ -36,16 +36,16 @@ const UIContrl = (() => {
 
           if (movie.genres) {
             movie.genres.forEach((g, i) => {
-              i === movie.genres.length - 1 ?
-                (genre += `${g}`) :
-                (genre += `${g}, `);
+              i === movie.genres.length - 1
+                ? (genre += `${g}`)
+                : (genre += `${g}, `);
             });
           }
           let hour = Math.floor(movie.runtime / 60);
           let min = movie.runtime % 60;
           let rows = `<div class="movie__box" id="row-${x}">
                         <img class="poster" src="${movie.medium_cover_image}">
-                        <div id="info">
+                        <div class="information">
                             <h4>${movie.title} (${movie.year})</h4>
                             <span class="clearFix text-success genres"><strong>Genre: </strong><span>${genre}</span></span>
                             <span class="text-success clearFix"><strong>IMDb: </strong>${
@@ -53,6 +53,9 @@ const UIContrl = (() => {
                             }</span>
                             <span class="text-success clearFix"><strong>Run Time: </strong>${hour}h ${min}m</span>
                         </div>
+                        <div class="parental__guide" id="${
+                          movie.imdb_code
+                        }">Parental Guide</div>
                     </div>
                     `;
           domStr.cont.insertAdjacentHTML("beforeend", rows);
@@ -64,9 +67,13 @@ const UIContrl = (() => {
       box.parentElement.removeChild(box);
     },
     disDownload: data => {
-      console.log(data);
+      // console.log(data);
       let noOfTorrents = data.torrents.length;
-      let summary = data.summary.split(" ").slice(0, 30).join(" ") + " ...";
+      let summary =
+        data.summary
+          .split(" ")
+          .slice(0, 30)
+          .join(" ") + " ...";
       let markup = `
           <div class="down__con close__able">
             <div class='down row text-center' id='box'>
@@ -77,24 +84,22 @@ const UIContrl = (() => {
         let colSize;
         switch (noOfTorrents) {
           case 1:
-            colSize = '12';
+            colSize = "12";
             break;
           case 2:
-            colSize = '6';
+            colSize = "6";
             break;
           default:
-            colSize = '4';
+            colSize = "4";
         }
         if (i <= 2) {
           let movie = `
               <div class="col-${colSize} ver">
                 <h4>${torrent.quality}</h4>
                 <a href='magnet:?xt=urn:btih:${torrent.hash}&dn=${encodeURI(
-                  data.title
-                )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80' class='close__able'><span class="fa fa-magnet close__able"></span></a>
-                <a href='${
-                  torrent.url
-                }' class='close__able'>
+            data.title
+          )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80' class='close__able'><span class="fa fa-magnet close__able"></span></a>
+                <a href='${torrent.url}' class='close__able'>
                     <span  class="fa fa-download close__able"></span>
                 </a>
                 <span class="size">Size: ${torrent.size}
@@ -110,17 +115,101 @@ const UIContrl = (() => {
             </div>
           </div>`;
       domStr.body.insertAdjacentHTML("afterbegin", markup);
+    },
+    showParental: (id, box) => {
+      let markup = `
+        <div class='parental__guide-con' id=${id}>
+          <img id="loading" src="images/loading.gif" width="50" height="50">
+        </div>
+      `;
+
+      box.insertAdjacentHTML("beforeend", markup);
+    },
+    fillParent: (id, data) => {
+      let list = "";
+      for (let i = 1; i < data.length; i++) list += `<li>${data[i]}</li>`;
+
+      let markup = `
+          <p class='text-center'>${data[0]}</p>
+          <ol class='xes__items'>
+            ${list}
+          </ol>
+      `;
+
+      document.getElementById(id).innerHTML = markup;
     }
   };
 })();
 
 const movieContrl = (() => {
+  const searchParental = async id => {
+    let data;
+    try {
+      const res = await fetch(
+        `https://cors-anywhere.herokuapp.com/https://www.imdb.com/title/${id}/parentalguide#advisory-nudity`
+      );
+
+      data = await res.text();
+    } catch (err) {
+      console.log("error", err);
+      return ["Internal Server Error, Please Come again later."];
+    }
+
+    const start = '<section id="advisory-nudity">';
+
+    const end = `<section id="advisory-violence">`;
+
+    const first = data.indexOf(start);
+
+    const second = data.indexOf(end);
+
+    let peopleStart = '<a class="advisory-severity-vote__message">';
+    let peopleEnd =
+      '<div class="ipl-swapper__content ipl-swapper__content-secondary">';
+
+    const section = data.substring(first + start.length, second);
+    // finished first phase
+    let number = section.substring(
+      section.indexOf(peopleStart) + peopleStart.length,
+      section.indexOf(peopleEnd)
+    );
+    if (number.indexOf("x") === 0) return ["Not found"];
+    console.log(section);
+    let result = getItems(section);
+    // finished second phase
+
+    result.unshift(number.substring(0, number.indexOf("</a>")));
+    // finished third phase
+    console.log(result);
+    return result;
+  };
+
+  function getItems(str) {
+    let arr = [];
+    let first = 0;
+    let second = 0;
+    while (second !== -1) {
+      let start = '<li class="ipl-zebra-list__item">';
+
+      let end = `<div class="ipl-hideable-container ipl-hideable-container--hidden ipl-zebra-list__action-row">`;
+
+      first = str.indexOf(start) + start.length;
+      second = str.indexOf(end);
+      if (second === -1) continue;
+      arr.push(str.substring(first, second).trim());
+
+      str = str.substring(second + end.length);
+    }
+
+    return arr;
+  }
   return {
     search: async url => {
       let res = await fetch(url);
       let data = await res.json();
       return data.data;
-    }
+    },
+    parentalSearch: searchParental
   };
 })();
 
@@ -129,9 +218,27 @@ const controller = ((UIC, MC) => {
     let movie__boxes = document.querySelectorAll(".movie__box");
     movie__boxes = Array.from(movie__boxes);
     movie__boxes.forEach((movie, i) => {
-      movie.addEventListener("click", () => {
-        UIC.disDownload(data[i]);
+      movie.addEventListener("click", async e => {
+        if (e.target.classList.contains("parental__guide")) {
+          let id = e.target.id;
+
+          UIC.showParental(`id-${id}`, e.target.parentElement);
+          const arr = await MC.parentalSearch(id);
+
+          UIC.fillParent(`id-${id}`, arr);
+        } else if (e.target.classList.contains("parental__guide-con")) {
+          e.target.parentNode.removeChild(e.target);
+        } else {
+          UIC.disDownload(data[i]);
+        }
       });
+    });
+
+    document.querySelector("body").addEventListener("click", e => {
+      if (!e.target.classList.contains("parental__guide")) {
+        let guide = document.querySelector(".parental__guide-con");
+        if (guide) guide.parentNode.removeChild(guide);
+      }
     });
   };
 
@@ -146,7 +253,7 @@ const controller = ((UIC, MC) => {
     };
 
     // Display movie on form submit
-    DOM.form.addEventListener("submit", function (event) {
+    DOM.form.addEventListener("submit", function(event) {
       event.preventDefault();
       let val = UIC.getInputVal();
       if (val) {
