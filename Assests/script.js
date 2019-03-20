@@ -149,14 +149,14 @@ const movieContrl = (() => {
         `http://parental-guide.herokuapp.com/https://www.imdb.com/title/${id}/parentalguide#advisory-nudity`
       );
 
-      data = await res.text();
+      data = await res.json();
     } catch (err) {
       console.log("error", err);
       return ["Internal Server Error, Please Come again later."];
     }
 
-    result = JSON.parse(result);
-    return result;
+    data = JSON.parse(data);
+    return data;
   };
   return {
     search: async url => {
