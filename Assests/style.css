@@ -4,7 +4,6 @@ body {
   font-family: "Merienda", serif;
 }
 
-
 .container {
   max-width: 1200px;
   min-height: 700px;
@@ -242,17 +241,32 @@ input:focus {
   background: black;
   opacity: 0.9;
   padding: 1rem;
+  overflow: auto;
   animation: showGuide 300ms 1;
 }
 
 @keyframes showGuide {
   from {
-    right: -100%
+    right: -100%;
   }
 
   to {
-    right: 0
+    right: 0;
   }
+}
+
+
+.parental__guide-con::-webkit-scrollbar {
+  width: 10px;
+  background-color: #666;
+}
+
+.parental__guide-con::-webkit-scrollbar-thumb {
+  background: green;
+}
+
+.parental__guide-con::-webkit-scrollbar-button {
+  display: none;
 }
 
 .parental__guide-con p {
