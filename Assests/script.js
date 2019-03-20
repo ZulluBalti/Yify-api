@@ -20,7 +20,7 @@ const UIContrl = (() => {
     removeLoader: () => {
       domStr.cont.innerHTML = "";
     },
-    display: function(data) {
+    display: function (data) {
       this.removeLoader();
       // If there is no movie
       if (data.movie_count == 0) {
@@ -36,9 +36,9 @@ const UIContrl = (() => {
 
           if (movie.genres) {
             movie.genres.forEach((g, i) => {
-              i === movie.genres.length - 1
-                ? (genre += `${g}`)
-                : (genre += `${g}, `);
+              i === movie.genres.length - 1 ?
+                (genre += `${g}`) :
+                (genre += `${g}, `);
             });
           }
           let hour = Math.floor(movie.runtime / 60);
@@ -71,9 +71,9 @@ const UIContrl = (() => {
       let noOfTorrents = data.torrents.length;
       let summary =
         data.summary
-          .split(" ")
-          .slice(0, 30)
-          .join(" ") + " ...";
+        .split(" ")
+        .slice(0, 30)
+        .join(" ") + " ...";
       let markup = `
           <div class="down__con close__able">
             <div class='down row text-center' id='box'>
@@ -146,7 +146,7 @@ const movieContrl = (() => {
     let data;
     try {
       const res = await fetch(
-        `https://cors-anywhere.herokuapp.com/https://www.imdb.com/title/${id}/parentalguide#advisory-nudity`
+        `http://parental-guide.herokuapp.com/https://www.imdb.com/title/${id}/parentalguide#advisory-nudity`
       );
 
       data = await res.text();
@@ -155,54 +155,9 @@ const movieContrl = (() => {
       return ["Internal Server Error, Please Come again later."];
     }
 
-    const start = '<section id="advisory-nudity">';
-
-    const end = `<section id="advisory-violence">`;
-
-    const first = data.indexOf(start);
-
-    const second = data.indexOf(end);
-
-    let peopleStart = '<a class="advisory-severity-vote__message">';
-    let peopleEnd =
-      '<div class="ipl-swapper__content ipl-swapper__content-secondary">';
-
-    const section = data.substring(first + start.length, second);
-    // finished first phase
-    let number = section.substring(
-      section.indexOf(peopleStart) + peopleStart.length,
-      section.indexOf(peopleEnd)
-    );
-    if (number.indexOf("x") === 0) return ["Not found"];
-    console.log(section);
-    let result = getItems(section);
-    // finished second phase
-
-    result.unshift(number.substring(0, number.indexOf("</a>")));
-    // finished third phase
-    console.log(result);
+    result = JSON.parse(result);
     return result;
   };
-
-  function getItems(str) {
-    let arr = [];
-    let first = 0;
-    let second = 0;
-    while (second !== -1) {
-      let start = '<li class="ipl-zebra-list__item">';
-
-      let end = `<div class="ipl-hideable-container ipl-hideable-container--hidden ipl-zebra-list__action-row">`;
-
-      first = str.indexOf(start) + start.length;
-      second = str.indexOf(end);
-      if (second === -1) continue;
-      arr.push(str.substring(first, second).trim());
-
-      str = str.substring(second + end.length);
-    }
-
-    return arr;
-  }
   return {
     search: async url => {
       let res = await fetch(url);
@@ -253,7 +208,7 @@ const controller = ((UIC, MC) => {
     };
 
     // Display movie on form submit
-    DOM.form.addEventListener("submit", function(event) {
+    DOM.form.addEventListener("submit", function (event) {
       event.preventDefault();
       let val = UIC.getInputVal();
       if (val) {
