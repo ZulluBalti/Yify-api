@@ -20,7 +20,7 @@ const UIContrl = (() => {
     removeLoader: () => {
       domStr.cont.innerHTML = "";
     },
-    display: function (data) {
+    display: function(data) {
       this.removeLoader();
       // If there is no movie
       if (data.movie_count == 0) {
@@ -36,9 +36,9 @@ const UIContrl = (() => {
 
           if (movie.genres) {
             movie.genres.forEach((g, i) => {
-              i === movie.genres.length - 1 ?
-                (genre += `${g}`) :
-                (genre += `${g}, `);
+              i === movie.genres.length - 1
+                ? (genre += `${g}`)
+                : (genre += `${g}, `);
             });
           }
           let hour = Math.floor(movie.runtime / 60);
@@ -59,46 +59,41 @@ const UIContrl = (() => {
                     </div>
                     `;
           domStr.cont.insertAdjacentHTML("beforeend", rows);
+          const el = document.getElementById(`row-${x}`);
+          const height = el.offsetHeight;
+          console.log(height);
+          document.getElementById(
+            `row-${x}`
+          ).style.gridRowEnd = `span ${Math.floor(height / 10)}`;
         });
       }
+      domStr.cont.style.gridTemplateRows = "repeat(auto-fill, 10px)";
     },
     hideDownload: () => {
       let box = document.querySelector(".down__con");
       box.parentElement.removeChild(box);
     },
     disDownload: data => {
-      // console.log(data);
-      let noOfTorrents = data.torrents.length;
       let summary =
         data.summary
-        .split(" ")
-        .slice(0, 30)
-        .join(" ") + " ...";
+          .split(" ")
+          .slice(0, 30)
+          .join(" ") + " ...";
+
       let markup = `
           <div class="down__con close__able">
-            <div class='down row text-center' id='box'>
-              <span class="col-12" id="h3">${data.title}</span>
+            <div class='down text-center' id='box'>
+              <div id="h3">${data.title}</div>
+              <div class="download__quality_box">
       `;
 
       data.torrents.forEach((torrent, i) => {
-        let colSize;
-        switch (noOfTorrents) {
-          case 1:
-            colSize = "12";
-            break;
-          case 2:
-            colSize = "6";
-            break;
-          default:
-            colSize = "4";
-        }
-        if (i <= 2) {
-          let movie = `
-              <div class="col-${colSize} ver">
+        let movie = `
+              <div class="down-${i} ver">
                 <h4>${torrent.quality}</h4>
                 <a href='magnet:?xt=urn:btih:${torrent.hash}&dn=${encodeURI(
-            data.title
-          )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80' class='close__able'><span class="fa fa-magnet close__able"></span></a>
+          data.title
+        )}&tr=udp://glotorrents.pw:6969/announce&tr=udp://tracker.opentrackr.org:1337/announce&tr=udp://torrent.gresille.org:80/announce&tr=udp://tracker.openbittorrent.com:80' class='close__able'><span class="fa fa-magnet close__able"></span></a>
                 <a href='${torrent.url}' class='close__able'>
                     <span  class="fa fa-download close__able"></span>
                 </a>
@@ -106,11 +101,11 @@ const UIContrl = (() => {
                 </span>
               </div>
           `;
-          markup += movie;
-        }
+        markup += movie;
       });
 
-      markup += `<p class="col-12">${summary}</p>
+      markup += `</div>
+                <p>${summary}</p>
                 <span id="close" class="fa fa-close close__able"></span>
             </div>
           </div>`;
@@ -208,7 +203,7 @@ const controller = ((UIC, MC) => {
     };
 
     // Display movie on form submit
-    DOM.form.addEventListener("submit", function (event) {
+    DOM.form.addEventListener("submit", function(event) {
       event.preventDefault();
       let val = UIC.getInputVal();
       if (val) {
