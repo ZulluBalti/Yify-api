@@ -1,6 +1,6 @@
 body {
-  background: url("../images/bg.jpg");
-  font-family: "Merienda", serif;
+  background: url('../images/bg.jpg');
+  font-family: 'Merienda', serif;
   margin: 0;
 }
 /**** Container ***/
@@ -31,7 +31,7 @@ body {
   font-size: 2.4rem;
   font-weight: 400;
   color: deepskyblue;
-  font-family: "lobster", serif;
+  font-family: 'lobster', serif;
   cursor: none;
 }
 .text-center {
@@ -153,6 +153,9 @@ input:focus {
   border: 1px solid black;
   border-radius: 10px;
   margin-bottom: 10px;
+}
+#movies > #loading {
+  margin-top: 40px;
 }
 
 #movies > div:hover {

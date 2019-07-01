@@ -1,38 +1,38 @@
 const UIContrl = (() => {
   let domStr = {
-    form: document.querySelector("form"),
-    body: document.querySelector("body"),
-    cont: document.querySelector("#movies"),
-    input: document.querySelector("input"),
-    year: document.querySelector(".date__year")
+    form: document.querySelector('form'),
+    body: document.querySelector('body'),
+    cont: document.querySelector('#movies'),
+    input: document.querySelector('input'),
+    year: document.querySelector('.date__year')
   };
 
   return {
     getDomStr: () => domStr,
     getInputVal: () => domStr.input.value,
     clearInput: () => {
-      domStr.input.value = "";
+      domStr.input.value = '';
     },
     showLoader: () => {
       let loader = `<img id="loading" src="images/loading.gif" width="50" height="50">`;
       domStr.cont.innerHTML = loader;
     },
     removeLoader: () => {
-      domStr.cont.innerHTML = "";
+      domStr.cont.innerHTML = '';
     },
     display: function(data) {
       this.removeLoader();
       // If there is no movie
       if (data.movie_count == 0) {
-        let para = document.createElement("p");
-        para.setAttribute("class", "error");
+        let para = document.createElement('p');
+        para.setAttribute('class', 'error');
         para.innerHTML =
           "<b>Sorry, We didn't find any thing<br>Check the spelling or try something else.</b>";
         domStr.cont.appendChild(para);
       } else {
         data.movies.forEach((movie, x) => {
           //appending rows to #movies
-          let genre = "";
+          let genre = '';
 
           if (movie.genres) {
             movie.genres.forEach((g, i) => {
@@ -58,27 +58,24 @@ const UIContrl = (() => {
                         }">Parental Guide</div>
                     </div>
                     `;
-          domStr.cont.insertAdjacentHTML("beforeend", rows);
+          domStr.cont.insertAdjacentHTML('beforeend', rows);
           const el = document.getElementById(`row-${x}`);
-          const height = el.offsetHeight;
-          console.log(height);
-          document.getElementById(
-            `row-${x}`
-          ).style.gridRowEnd = `span ${Math.floor(height / 10)}`;
+          const height = el.scrollHeight + 2;
+          el.style.gridRowEnd = `span ${Math.floor(height / 10)}`;
         });
       }
-      domStr.cont.style.gridTemplateRows = "repeat(auto-fill, 10px)";
+      domStr.cont.style.gridTemplateRows = 'repeat(auto-fill, 10px)';
     },
     hideDownload: () => {
-      let box = document.querySelector(".down__con");
+      let box = document.querySelector('.down__con');
       box.parentElement.removeChild(box);
     },
     disDownload: data => {
       let summary =
         data.summary
-          .split(" ")
+          .split(' ')
           .slice(0, 30)
-          .join(" ") + " ...";
+          .join(' ') + ' ...';
 
       let markup = `
           <div class="down__con close__able">
@@ -109,7 +106,7 @@ const UIContrl = (() => {
                 <span id="close" class="fa fa-close close__able"></span>
             </div>
           </div>`;
-      domStr.body.insertAdjacentHTML("afterbegin", markup);
+      domStr.body.insertAdjacentHTML('afterbegin', markup);
     },
     showParental: (id, box) => {
       let markup = `
@@ -118,10 +115,10 @@ const UIContrl = (() => {
         </div>
       `;
 
-      box.insertAdjacentHTML("beforeend", markup);
+      box.insertAdjacentHTML('beforeend', markup);
     },
     fillParent: (id, data) => {
-      let list = "";
+      let list = '';
       for (let i = 1; i < data.length; i++) list += `<li>${data[i]}</li>`;
 
       let markup = `
@@ -146,8 +143,8 @@ const movieContrl = (() => {
 
       data = await res.json();
     } catch (err) {
-      console.log("error", err);
-      return ["Internal Server Error, Please Come again later."];
+      console.log('error', err);
+      return ['Internal Server Error, Please Come again later.'];
     }
 
     data = JSON.parse(data);
@@ -165,18 +162,18 @@ const movieContrl = (() => {
 
 const controller = ((UIC, MC) => {
   const addEvents = data => {
-    let movie__boxes = document.querySelectorAll(".movie__box");
+    let movie__boxes = document.querySelectorAll('.movie__box');
     movie__boxes = Array.from(movie__boxes);
     movie__boxes.forEach((movie, i) => {
-      movie.addEventListener("click", async e => {
-        if (e.target.classList.contains("parental__guide")) {
+      movie.addEventListener('click', async e => {
+        if (e.target.classList.contains('parental__guide')) {
           let id = e.target.id;
 
           UIC.showParental(`id-${id}`, e.target.parentElement);
           const arr = await MC.parentalSearch(id);
 
           UIC.fillParent(`id-${id}`, arr);
-        } else if (e.target.classList.contains("parental__guide-con")) {
+        } else if (e.target.classList.contains('parental__guide-con')) {
           e.target.parentNode.removeChild(e.target);
         } else {
           UIC.disDownload(data[i]);
@@ -184,9 +181,9 @@ const controller = ((UIC, MC) => {
       });
     });
 
-    document.querySelector("body").addEventListener("click", e => {
-      if (!e.target.classList.contains("parental__guide")) {
-        let guide = document.querySelector(".parental__guide-con");
+    document.querySelector('body').addEventListener('click', e => {
+      if (!e.target.classList.contains('parental__guide')) {
+        let guide = document.querySelector('.parental__guide-con');
         if (guide) guide.parentNode.removeChild(guide);
       }
     });
@@ -203,11 +200,11 @@ const controller = ((UIC, MC) => {
     };
 
     // Display movie on form submit
-    DOM.form.addEventListener("submit", function(event) {
+    DOM.form.addEventListener('submit', function(event) {
       event.preventDefault();
       let val = UIC.getInputVal();
       if (val) {
-        let url = "https://yts.am/api/v2/list_movies.json?query_term=" + val;
+        let url = 'https://yts.lt/api/v2/list_movies.json?query_term=' + val;
         displayRes(url);
       }
       UIC.clearInput();
@@ -215,16 +212,16 @@ const controller = ((UIC, MC) => {
 
     // Show movies on load
     // Making date Year in UI dynamic
-    window.addEventListener("load", () => {
+    window.addEventListener('load', () => {
       let d = new Date();
       DOM.year.textContent = d.getFullYear();
-      let url = "https://yts.am/api/v2/list_movies.json";
+      let url = 'https://yts.lt/api/v2/list_movies.json';
       displayRes(url);
     });
 
     // hide download container/div
-    DOM.body.addEventListener("click", e => {
-      let closeAble = e.target.classList.contains("close__able");
+    DOM.body.addEventListener('click', e => {
+      let closeAble = e.target.classList.contains('close__able');
       if (closeAble) {
         UIC.hideDownload();
       }
