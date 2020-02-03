@@ -204,7 +204,7 @@ const controller = ((UIC, MC) => {
       event.preventDefault();
       let val = UIC.getInputVal();
       if (val) {
-        let url = 'https://yts.lt/api/v2/list_movies.json?query_term=' + val;
+        let url = 'https://yts.mx/api/v2/list_movies.json?query_term=' + val;
         displayRes(url);
       }
       UIC.clearInput();
@@ -215,7 +215,7 @@ const controller = ((UIC, MC) => {
     window.addEventListener('load', () => {
       let d = new Date();
       DOM.year.textContent = d.getFullYear();
-      let url = 'https://yts.lt/api/v2/list_movies.json';
+      let url = 'https://yts.mx/api/v2/list_movies.json';
       displayRes(url);
     });
 
